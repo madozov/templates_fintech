@@ -103,11 +103,13 @@
     <h2 class="form-card__title">Set new balance</h2>
     <p class="form-card__hint">This will automatically record a ledger entry to reflect the adjustment.</p>
 
-    <p class="note" style="margin-top:18px;">
+    // TODO: Chnage this to text the aligns with reconciliation
+   <p class="note" style="margin-top:18px;">
       <strong>Entries can't be edited or deleted.</strong>
       Fix a mistake by recording the opposite amount.
     </p>
-
+    //This is where the change ends
+    
     <!-- Form page: posts back to its own URL, so no action attribute -->
     <form class="bal-form" method="post">
       {% csrf_token %}
