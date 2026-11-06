@@ -144,6 +144,20 @@
   .tag--submitted { border-color: var(--chart-line); color: var(--chart-line); }
   .tag--completed { border-color: var(--cta-bg); color: var(--cta-bg); }
 
+  .tag--link {
+    background: var(--cta-bg);
+    border-color: var(--cta-bg);
+    color: var(--cta-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .18s ease, border-color .18s ease;
+  }
+  .tag--link:hover {
+    background: var(--cta-bg-hover);
+    border-color: var(--cta-bg-hover);
+    color: var(--cta-text);
+  }
+
   /* --- Over budget flag --- */
   .over-flag {
     display: inline-flex;
@@ -252,11 +266,7 @@
             {% for r in spending_reqs %}
               <tr>
                 <td>
-                  {% if r.status == "approved" %}
-                    <a href="{% url 'request-reim' organization_slug=current_org.slug request_id=r.id %}" class="req-title-link">{{ r.title }}</a>
-                  {% else %}
-                    <span class="req-title">{{ r.title }}</span>
-                  {% endif %}
+                  <span class="req-title">{{ r.title }}</span>
                 </td>
 
                 <td class="num">${{ r.spend|floatformat:2 }}</td>
@@ -271,7 +281,11 @@
 
                 <td>
                   <div class="status-cell">
-                    <span class="tag tag--{{ r.status }}">{{ r.get_status_display }}</span>
+                    {% if r.status == "approved" %}
+                      <a href="{% url 'request-reim' organization_slug=current_org.slug request_id=r.id %}" class="tag tag--approved tag--link">Reimbursement Request</a>
+                    {% else %}
+                      <span class="tag tag--{{ r.status }}">{{ r.get_status_display }}</span>
+                    {% endif %}
                     {% if r.over_budget %}
                       <span class="over-flag" title="This request is over budget">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
